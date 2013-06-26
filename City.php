@@ -12,6 +12,15 @@ class ErrorBattleException extends Exception {};
 class City extends MapPoint {
     private $CityArmy;
     private $Buildings = array();
+
+    //@TODO сделать возможно отдельный класс для управления ресурсами в городе
+    private $city_resource = null; // new CityResource()
+    private $Food=400;
+    private $Wood=400;
+    private $Stones=400;
+    private $Steel=400;
+
+    //вспомогательные переменные
     private $wave_count=0;
 
     function __construct($x, $y){
@@ -53,7 +62,7 @@ class City extends MapPoint {
         $defence_army_strength=$defence_army_strength/count($this->getArmy()->getUnits());
 
         //наносим повреждения юнитам в обоих армиях и проверяем мертвых
-        $this->getArmy()->setDamage($attack_army_strength/$coeff);
+        $this->getArmy()->setDamage($attack_army_strength/$coeff); //@TODO не учтено кол-во войск в разных армиях, например один юнит может нанести повреждения сразу трем, а три ему нанесут повреждения как один. Возможно стоит считать коэф не средний, а общую силу удара делить на кол-во юнитов в другой армии
         $attack_army->setDamage($defence_army_strength*$coeff);
 
         //если в одной из армий еще есть живые начинаем все заного

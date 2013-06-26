@@ -37,7 +37,7 @@ class Army {
     }
 
     function randArmy($maxUnitCount=5) {
-        for($i=1;$i<=rand(1,$maxUnitCount);$i++)
+        for($i=1;$i<=rand(1,$maxUnitCount);$i++) //@TODO возможна ошибка генерации максимального числа повторов, надеюсь что фор не генерирует это значение при каждой итерации
         {
             $armors=array();
             list($name,$health,$strength)=UnitWarehouse::getRandomItem();
@@ -59,7 +59,7 @@ class Army {
         }
     }
 
-    function prepareForBattle(){
+    function prepareForBattle(){ //считаем и устанавливаем счетчики здоровья у юнитов перед боем
         foreach ($this->Units as $unit) $unit->prepareForBattle();
 
     }
@@ -67,6 +67,7 @@ class Army {
     function setDamage($damage){ //наносим повреждения всем юнитам армии
         foreach ($this->Units as $unit) $unit->setDamage($damage);
     }
+
 
     function checkDead(){ //проверяем и удаляем мертвые юниты
         foreach ($this->Units as $i => $unit)
