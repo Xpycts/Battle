@@ -13,7 +13,7 @@ class City extends MapPoint {
     private $CityArmy;
     private $Buildings = array();
 
-    //@TODO сделать возможно отдельный класс для управления ресурсами в городе
+    //@TODO сделать отдельный класс для управления ресурсами в городе или абстрактный класс РЕСУРС и субклассы от него
     private $city_resource = null; // new CityResource()
     private $Food=400;
     private $Wood=400;
@@ -41,7 +41,8 @@ class City extends MapPoint {
         $this->getArmy()->prepareForBattle();
         $attack_army->prepareForBattle();
         $this->wave_count=0;
-        try{
+
+        try{ //@TODO уточнить правильность обработки исключения
            if (!$this->attackWaves($attack_army)) throw new ErrorBattleException("Ошибка проведения сражения!");
             $this->CityArmy->checkDead();
             $attack_army->checkDead();

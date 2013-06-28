@@ -14,9 +14,10 @@ abstract class Item { //базовый класс для оружия или б�
     protected $strength;
 
     function __construct($name=null, $strength=null) {
-        try {
-            if (!$name&&$strength) throw new WrongItemException("Не правильно задан конструктор класса");
-        } catch (\Exception $e) {}
+        if (!$name&&$strength) {
+            throw new WrongItemException("Имя класса не задано!");
+            $name="Unnamed";
+        }
 
         if ($name)
             $this->name=$name;
